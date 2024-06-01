@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;
 
+import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,4 +22,23 @@ class GitlabIfJobConditionTest {
         var gitlabCondition = new GitlabIfJobCondition("$CI_PIPELINE_SOURCE == \"merge_request_event\"");
         assertThat(gitlabCondition.isMet(Variable.of("CI_PIPELINE_SOURCE", "merge_request_event"))).isTrue();
     }
+
+    @Test
+    void checkConditionsNotMet() throws ScriptException {
+        var gitlabCondition = new GitlabIfJobCondition("$CI_PIPELINE_SOURCE == \"merge_request_event\"");
+        assertThat(gitlabCondition.isMet(Variable.of("CI_PIPELINE_SOURCE", "potato"))).isFalse();
+    }
+
+
+    @Test
+    void checkConditionsFullyResolved() throws ScriptException {
+        var gitlabCondition = new GitlabIfJobCondition("$CI_PIPELINE_SOURCE == \"merge_request_event\"");
+        assertThat(gitlabCondition.isFullyResolved(Variable.of("UNRESOLVED", "potato"))).isFalse();
+    }
+    @Test
+    void checkConditionsNotFullyResolved() throws ScriptException {
+        var gitlabCondition = new GitlabIfJobCondition("$CI_PIPELINE_SOURCE == \"merge_request_event\"");
+        assertThat(gitlabCondition.isFullyResolved(Variable.of("CI_PIPELINE_SOURCE", "potato"))).isTrue();
+    }
+
 }

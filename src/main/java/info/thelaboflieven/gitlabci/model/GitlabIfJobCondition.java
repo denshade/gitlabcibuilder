@@ -23,4 +23,12 @@ public class GitlabIfJobCondition {
             return (Boolean)outcome;
         return false;
     }
+
+    public boolean isFullyResolved(Variable... variables) throws ScriptException {
+        var filledConditions = conditions;
+        for (var variable : variables) {
+            filledConditions = filledConditions.replaceAll("\\$"+variable.getName(), '"'+variable.getValue()+'"');
+        }
+        return !filledConditions.contains("$");
+    }
 }
