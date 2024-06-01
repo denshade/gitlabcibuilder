@@ -1,0 +1,3 @@
+I can the read 'simpleExample.yml' gitlab ci files into the gitlab model.
+I can write a gitlab ci file from the gitlab model
+I can test that my pipeline when run with specific variables runs specific tasks.
