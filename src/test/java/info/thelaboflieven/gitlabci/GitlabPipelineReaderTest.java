@@ -3,6 +3,8 @@ package info.thelaboflieven.gitlabci;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -10,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class GitlabPipelineReaderTest {
 
     @Test
-    void readerSimpleExample() {
+    void readerSimpleExample() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("simpleExample.yml").getFile());
 
