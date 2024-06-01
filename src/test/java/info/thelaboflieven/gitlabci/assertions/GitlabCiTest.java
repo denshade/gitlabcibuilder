@@ -8,7 +8,6 @@ import java.io.File;
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GitlabCiTest {
 
@@ -20,7 +19,7 @@ class GitlabCiTest {
         var reader = new GitlabPipelineReader();
         GitlabPipeline pipeline = reader.read(file);
 
-        assertThat(GitlabCi.stagesKnown(pipeline)).isTrue();
+        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
     }
 
     @Test
@@ -31,7 +30,7 @@ class GitlabCiTest {
         var reader = new GitlabPipelineReader();
         GitlabPipeline pipeline = reader.read(file);
 
-        assertThat(GitlabCi.stagesKnown(pipeline)).isFalse();
+        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isFalse();
     }
 
     @Test
@@ -42,7 +41,7 @@ class GitlabCiTest {
         var reader = new GitlabPipelineReader();
         GitlabPipeline pipeline = reader.read(file);
 
-        assertThat(GitlabCi.stagesKnown(pipeline)).isTrue();
+        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
     }
 
 }
