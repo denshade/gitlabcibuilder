@@ -5,4 +5,5 @@ import java.util.List;
 
 public class GitlabPipeline {
     public List<GitlabJob> gitlabJobList = new ArrayList<>();
+    public List<String> stages = new ArrayList<>();
 }

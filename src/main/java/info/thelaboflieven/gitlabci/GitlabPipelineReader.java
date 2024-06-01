@@ -21,14 +21,21 @@ public class GitlabPipelineReader implements GitlabCiReader
         Map contentMap = yaml.load(input);
         for (var data : contentMap.entrySet()) {
             var b = (Map.Entry)data;
-            var jobDetails = (Map)b.getValue();
-            GitlabJob gitlabJob = new GitlabJob();
-            gitlabJob.name = b.getKey().toString();
-            gitlabJob.stage = jobDetails.get("stage").toString();
-            gitlabJob.environment = jobDetails.get("stage").toString();
+            if (b.getValue() instanceof Map) {
+                var jobDetails = (Map)b.getValue();
+                GitlabJob gitlabJob = new GitlabJob();
+                gitlabJob.name = b.getKey().toString();
+                gitlabJob.stage = jobDetails.get("stage").toString();
+                gitlabJob.environment = jobDetails.get("stage").toString();
 
-            gitlabJob.script = new Script(String.join("\n", ((List<String>) jobDetails.get("script"))));
-            gitlabPipeline.gitlabJobList.add(gitlabJob);
+                gitlabJob.script = new Script(String.join("\n", ((List<String>) jobDetails.get("script"))));
+                gitlabPipeline.gitlabJobList.add(gitlabJob);
+            } else {
+                String jobName = b.getKey().toString();
+                if (jobName.equals("stages")) {
+                    gitlabPipeline.stages = (List)b.getValue();
+                }
+            }
         }
         return gitlabPipeline;
     }

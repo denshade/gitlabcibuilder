@@ -1,3 +1,8 @@
+stages:
+  - stage1
+  - stage2
+  - stage3
+
 build-job:
   stage: stage1
   script:
