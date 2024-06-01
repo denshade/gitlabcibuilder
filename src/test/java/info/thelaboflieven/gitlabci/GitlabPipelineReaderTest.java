@@ -20,7 +20,8 @@ class GitlabPipelineReaderTest {
         GitlabPipeline pipeline = reader.read(file);
         assertThat(pipeline).isNotNull();
         assertThat(pipeline.gitlabJobList).hasSize(4);
-        assertThat(pipeline.gitlabJobList.get(0).script).isNotNull();
+        GitlabJob firstGitlabJob = pipeline.gitlabJobList.get(0);
+        assertThat(firstGitlabJob.script.getLines()).isEqualTo("echo \"Hello, $GITLAB_USER_LOGIN!\"");
 
     }
 
