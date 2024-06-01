@@ -2,10 +2,12 @@ package info.thelaboflieven.gitlabci;
 
 import org.yaml.snakeyaml.Yaml;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 public class GitlabPipelineReader implements GitlabCiReader
 {
@@ -18,7 +20,9 @@ public class GitlabPipelineReader implements GitlabCiReader
             var b = (Map.Entry)data;
             var jobDetails = (Map)b.getValue();
             GitlabJob gitlabJob = new GitlabJob();
-            gitlabJob.script = new Script(((List<String>)jobDetails.get("script")).stream().collect(Collectors.joining("\n")));
+            gitlabJob.name = b.getKey().toString();
+            gitlabJob.stage = jobDetails.get("stage").toString();
+            gitlabJob.script = new Script(String.join("\n", ((List<String>) jobDetails.get("script"))));
             gitlabPipeline.gitlabJobList.add(gitlabJob);
         }
         return gitlabPipeline;

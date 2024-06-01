@@ -22,6 +22,7 @@ class GitlabPipelineReaderTest {
         assertThat(pipeline.gitlabJobList).hasSize(4);
         GitlabJob firstGitlabJob = pipeline.gitlabJobList.get(0);
         assertThat(firstGitlabJob.name).isEqualTo("build-job");
+        assertThat(firstGitlabJob.stage).isEqualTo("build");
         assertThat(firstGitlabJob.script.getLines()).isEqualTo("echo \"Hello, $GITLAB_USER_LOGIN!\"");
 
     }
