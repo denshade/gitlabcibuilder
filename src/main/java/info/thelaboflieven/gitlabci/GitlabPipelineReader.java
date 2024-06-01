@@ -22,6 +22,8 @@ public class GitlabPipelineReader implements GitlabCiReader
             GitlabJob gitlabJob = new GitlabJob();
             gitlabJob.name = b.getKey().toString();
             gitlabJob.stage = jobDetails.get("stage").toString();
+            gitlabJob.environment = jobDetails.get("stage").toString();
+
             gitlabJob.script = new Script(String.join("\n", ((List<String>) jobDetails.get("script"))));
             gitlabPipeline.gitlabJobList.add(gitlabJob);
         }
