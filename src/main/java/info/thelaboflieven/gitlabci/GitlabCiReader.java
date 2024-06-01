@@ -1,7 +1,8 @@
 package info.thelaboflieven.gitlabci;
 
+import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 public interface GitlabCiReader

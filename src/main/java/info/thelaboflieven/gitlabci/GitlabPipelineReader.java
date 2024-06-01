@@ -1,5 +1,8 @@
 package info.thelaboflieven.gitlabci;
 
+import info.thelaboflieven.gitlabci.model.GitlabJob;
+import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.model.Script;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;

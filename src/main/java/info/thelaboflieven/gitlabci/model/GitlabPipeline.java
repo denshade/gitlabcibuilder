@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci;
+package info.thelaboflieven.gitlabci.model;
 
 import java.util.ArrayList;
 import java.util.List;

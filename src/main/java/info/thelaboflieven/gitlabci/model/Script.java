@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci;
+package info.thelaboflieven.gitlabci.model;
 
 public class Script {
     private final String lines;

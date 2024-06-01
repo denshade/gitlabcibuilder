@@ -1,13 +1,13 @@
 package info.thelaboflieven.gitlabci;
 
+import info.thelaboflieven.gitlabci.model.GitlabJob;
+import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import org.junit.jupiter.api.Test;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GitlabPipelineReaderTest {
 
