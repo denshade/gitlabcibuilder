@@ -13,35 +13,34 @@ class GitlabCiTest {
 
     @Test
     void checkStageAssertions() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("simpleExample.yml").getFile());
-
-        var reader = new GitlabPipelineReader();
-        GitlabPipeline pipeline = reader.read(file);
-
+        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExample.yml");
         assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
     }
 
     @Test
     void checkUnknownStageAssertions() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("simpleExampleUnknownStage.yml").getFile());
-
-        var reader = new GitlabPipelineReader();
-        GitlabPipeline pipeline = reader.read(file);
-
+        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleUnknownStage.yml");
         assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isFalse();
     }
 
     @Test
     void checkStageDefinedAssertions() throws IOException {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource("simpleExampleOwnStageDefined.yml").getFile());
-
-        var reader = new GitlabPipelineReader();
-        GitlabPipeline pipeline = reader.read(file);
+        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleOwnStageDefined.yml");
 
         assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
+    }
+
+    private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {
+        File file = getFixture(name);
+        var reader = new GitlabPipelineReader();
+        GitlabPipeline pipeline = reader.read(file);
+        return pipeline;
+    }
+
+    private File getFixture(String name) {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource(name).getFile());
+        return file;
     }
 
 }
