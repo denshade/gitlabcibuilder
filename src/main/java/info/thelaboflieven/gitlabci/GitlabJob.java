@@ -1,5 +1,5 @@
 package info.thelaboflieven.gitlabci;
 
 public class GitlabJob {
-    Script script;
+    public Script script;
 }

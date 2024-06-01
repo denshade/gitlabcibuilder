@@ -11,9 +11,13 @@ public class GitlabPipelineReader implements GitlabCiReader
         InputStream input = new FileInputStream(file);
         Yaml yaml = new Yaml();
         GitlabPipeline gitlabPipeline = new GitlabPipeline();
-        Map contentMap = (Map)yaml.load(input);
-        for (Object data : contentMap.entrySet()) {
-            gitlabPipeline.gitlabJobList.add(new GitlabJob());
+        Map contentMap = yaml.load(input);
+        for (var data : contentMap.entrySet()) {
+            var b = (Map.Entry)data;
+            var jobDetails = (Map)b.getValue();
+            GitlabJob gitlabJob = new GitlabJob();
+            gitlabJob.script = new Script(jobDetails.get("script").toString());
+            gitlabPipeline.gitlabJobList.add(gitlabJob);
         }
         return gitlabPipeline;
     }
