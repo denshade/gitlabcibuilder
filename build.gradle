@@ -14,8 +14,17 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
     testImplementation 'org.assertj:assertj-core:3.26.0'
+    implementation group: 'org.graalvm.js', name: 'js', version: '23.0.4'
+    implementation group: 'org.graalvm.js', name: 'js-scriptengine', version: '24.0.1'
 }
 
 test {
     useJUnitPlatform()
+}
+
+allprojects {
+    tasks.withType(JavaCompile) {
+        sourceCompatibility =  JavaVersion.VERSION_17
+        targetCompatibility =  JavaVersion.VERSION_17
+    }
 }
