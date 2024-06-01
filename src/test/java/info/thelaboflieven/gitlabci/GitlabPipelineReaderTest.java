@@ -15,7 +15,11 @@ class GitlabPipelineReaderTest {
         File file = new File(classLoader.getResource("simpleExample.yml").getFile());
 
         var reader = new GitlabPipelineReader();
-        assertThat(reader.read(file)).isNotNull();
+        GitlabPipeline pipeline = reader.read(file);
+        assertThat(pipeline).isNotNull();
+        assertThat(pipeline.gitlabJobList).hasSize(4);
+
     }
+
 
 }
