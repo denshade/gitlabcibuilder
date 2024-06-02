@@ -15,6 +15,7 @@ public class GitlabJob {
             gitlabJob.name = b.getKey().toString();
             gitlabJob.stage = jobDetails.get("stage").toString();
             gitlabJob.environment = jobDetails.get("environment") == null?null:jobDetails.get("environment").toString();
+            if (jobDetails.containsKey("rule"))
             gitlabJob.script = Script.from(jobDetails);
         }
         return gitlabJob;
@@ -24,6 +25,7 @@ public class GitlabJob {
     public Script script;
     public String stage;
     public String environment;
+    public List<Rule> rules = new ArrayList<>();
     public List<GitlabJobCondition> gitlabJobConditions = new ArrayList<>();
 
     public boolean conditionsMet(Variable[] variables) throws ScriptException {
