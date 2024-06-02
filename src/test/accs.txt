@@ -2,3 +2,4 @@ I can the read 'simpleExample.yml' gitlab ci files into the gitlab model.
 I can write a gitlab ci file from the gitlab model
 I can test that my pipeline when run with specific variables runs specific tasks.
 I can check that the needs are all available for a specific set of variables
+I can check that for a specific set of variables the needs of all tasks are met.

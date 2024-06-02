@@ -1,9 +1,13 @@
 package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineReader;
+import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
+import info.thelaboflieven.gitlabci.model.GitlabJob;
+import info.thelaboflieven.gitlabci.model.GitlabJobCondition;
 import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import org.junit.jupiter.api.Test;
 
+import javax.script.ScriptException;
 import java.io.File;
 import java.io.IOException;
 
@@ -28,6 +32,16 @@ class GitlabCiTest {
         GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleOwnStageDefined.yml");
 
         assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
+    }
+
+    @Test
+    void singleConditionAssertion() throws ScriptException {
+        var pipeline = new GitlabPipeline();
+        var gitlabJob = new GitlabJob();
+        gitlabJob.gitlabJobConditions.add(new GitlabJobCondition(new GitlabIfJobCondition("1==1"), null));
+        pipeline.gitlabJobList.add(gitlabJob);
+        assertThat(GitlabCiAssertions.jobsRunForConditions(pipeline)).hasSize(1);
+
     }
 
     private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {

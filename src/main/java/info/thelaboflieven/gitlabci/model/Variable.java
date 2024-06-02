@@ -1,12 +1,17 @@
 package info.thelaboflieven.gitlabci.model;
 
-public class Variable {
-    private String name;
-    private String value;
+public record Variable(String name, String value) {
 
-    public Variable(String name, String value) {
-        this.name = name;
-        this.value = value;
+    public static Variable CI_COMMIT_BRANCH(String value) {
+        return new Variable("CI_COMMIT_BRANCH", value);
+    }
+
+    public static Variable CI_PIPELINE_SOURCE(String value) {
+        return new Variable("CI_PIPELINE_SOURCE", value);
+    }
+
+    public static Variable CI_COMMIT_TITLE(String value) {
+        return new Variable("CI_COMMIT_TITLE", value);
     }
 
     public String getName() {
