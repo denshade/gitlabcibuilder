@@ -1,10 +1,7 @@
 package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
-import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
-import info.thelaboflieven.gitlabci.model.GitlabJob;
-import info.thelaboflieven.gitlabci.model.GitlabJobCondition;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.model.*;
 import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;
@@ -30,7 +27,6 @@ class GitlabCiTest {
     @Test
     void checkStageDefinedAssertions() throws IOException {
         GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleOwnStageDefined.yml");
-
         assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
     }
 
@@ -38,17 +34,29 @@ class GitlabCiTest {
     void singleConditionAssertion() throws ScriptException {
         var pipeline = new GitlabPipeline();
         var gitlabJob = new GitlabJob();
-        gitlabJob.gitlabJobConditions.add(new GitlabJobCondition(new GitlabIfJobCondition("1==1"), null));
+        gitlabJob.rules.add(new Rule(new GitlabIfJobCondition("1==1"), null));
         pipeline.gitlabJobList.add(gitlabJob);
-        assertThat(GitlabCiAssertions.jobsRunForConditions(pipeline)).hasSize(1);
-
+        assertThat(GitlabCiAssertions.jobsRunForVariables(pipeline)).hasSize(1);
+    }
+    @Test
+    void singleConditionAssertionFails() throws ScriptException {
+        var pipeline = new GitlabPipeline();
+        var gitlabJob = new GitlabJob();
+        gitlabJob.rules.add(new Rule(new GitlabIfJobCondition("1==0"), null));
+        pipeline.gitlabJobList.add(gitlabJob);
+        assertThat(GitlabCiAssertions.jobsRunForVariables(pipeline)).hasSize(0);
+    }
+    @Test
+    void singleConditionAssertionWhenNever() throws ScriptException, IOException {
+        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleRulesWhenNever.yml");
+        assertThat(pipeline.gitlabJobList.get(0).rules).isNotEmpty();
+        assertThat(GitlabCiAssertions.jobsRunForVariables(pipeline)).hasSize(3);
     }
 
     private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {
         File file = getFixture(name);
         var reader = new GitlabPipelineFileReader();
-        GitlabPipeline pipeline = reader.read(file);
-        return pipeline;
+        return reader.read(file);
     }
 
     private File getFixture(String name) {

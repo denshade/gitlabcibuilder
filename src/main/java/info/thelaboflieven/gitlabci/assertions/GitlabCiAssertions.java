@@ -22,7 +22,7 @@ public class GitlabCiAssertions {
         return allKnownStates.containsAll(mentionedStages);
     }
 
-    public static List<GitlabJob> jobsRunForConditions(GitlabPipeline pipeline, Variable... variables) throws ScriptException {
+    public static List<GitlabJob> jobsRunForVariables(GitlabPipeline pipeline, Variable... variables) throws ScriptException {
         List<GitlabJob> jobs = new ArrayList<>();
         for (GitlabJob job : pipeline.gitlabJobList) {
             if (job.conditionsMet(variables)) {
