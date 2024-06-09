@@ -7,7 +7,7 @@ import java.util.List;
 public class GitlabJob {
     public String name;
     public Script script;
-    public String stage;
+    public String stage = "test";
     public String environment;
     public List<Rule> rules = new ArrayList<>();
 
