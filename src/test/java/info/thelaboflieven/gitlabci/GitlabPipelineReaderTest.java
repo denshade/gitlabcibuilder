@@ -17,7 +17,7 @@ class GitlabPipelineReaderTest {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("simpleExample.yml").getFile());
 
-        var reader = new GitlabPipelineReader();
+        var reader = new GitlabPipelineFileReader();
         GitlabPipeline pipeline = reader.read(file);
         assertThat(pipeline).isNotNull();
         assertThat(pipeline.gitlabJobList).hasSize(4);
@@ -31,7 +31,7 @@ class GitlabPipelineReaderTest {
     void readerStagesExample() throws IOException {
         ClassLoader classLoader = getClass().getClassLoader();
         File file = new File(classLoader.getResource("simpleExampleOwnStageDefined.yml").getFile());
-        var reader = new GitlabPipelineReader();
+        var reader = new GitlabPipelineFileReader();
         GitlabPipeline pipeline = reader.read(file);
         assertThat(pipeline).isNotNull();
         assertThat(pipeline.stages).isEqualTo(List.of("stage1", "stage2", "stage3"));

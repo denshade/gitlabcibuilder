@@ -1,6 +1,6 @@
 package info.thelaboflieven.gitlabci.assertions;
 
-import info.thelaboflieven.gitlabci.GitlabPipelineReader;
+import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
 import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
 import info.thelaboflieven.gitlabci.model.GitlabJob;
 import info.thelaboflieven.gitlabci.model.GitlabJobCondition;
@@ -46,7 +46,7 @@ class GitlabCiTest {
 
     private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {
         File file = getFixture(name);
-        var reader = new GitlabPipelineReader();
+        var reader = new GitlabPipelineFileReader();
         GitlabPipeline pipeline = reader.read(file);
         return pipeline;
     }
