@@ -18,4 +18,8 @@ public class GitlabPipelineFileReader implements GitlabCiReader
         Map contentMap = yaml.load(input);
         return GitlabPipelineReader.from(contentMap);
     }
+    public static GitlabPipeline pipelineInProject() throws IOException {
+        var reader = new GitlabPipelineFileReader();
+        return reader.read(new File("gitlab-ci.yml"));
+    }
 }
