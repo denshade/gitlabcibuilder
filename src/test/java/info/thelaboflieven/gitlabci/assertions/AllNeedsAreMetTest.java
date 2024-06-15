@@ -1,6 +1,7 @@
 package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
+import info.thelaboflieven.gitlabci.GitlabPipelineTestLoader;
 import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import org.junit.jupiter.api.Test;
 
@@ -11,39 +12,26 @@ import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class AllNeedsAreMetTest {
     @Test
-    void checkNeedAreCorrect() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("needsCorrect.yml");
+    void checkNeedAreCorrect() {
+        var pipeline = GitlabPipelineTestLoader.load("needsCorrect.yml");
         assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isTrue();
     }
 
     @Test
-    void needsIncorrectWrongPhase() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("needsIncorrectWrongPhase.yml");
+    void needsIncorrectWrongPhase() {
+        var pipeline = GitlabPipelineTestLoader.load("needsIncorrectWrongPhase.yml");
         assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isFalse();
     }
 
     @Test
-    void needsIncorrectUnknownForVariable() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("needsIncorrectUnknownForVariable.yml");
+    void needsIncorrectUnknownForVariable() {
+        var pipeline = GitlabPipelineTestLoader.load("needsIncorrectUnknownForVariable.yml");
         assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isFalse();
     }
 
     @Test
-    void needsIncorrectUnknown() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("needsIncorrectUnknown.yml");
+    void needsIncorrectUnknown() {
+        var pipeline = GitlabPipelineTestLoader.load("needsIncorrectUnknown.yml");
         assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isFalse();
-    }
-
-
-    private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {
-        File file = getFixture(name);
-        var reader = new GitlabPipelineFileReader();
-        return reader.read(file);
-    }
-
-    private File getFixture(String name) {
-        ClassLoader classLoader = getClass().getClassLoader();
-        File file = new File(classLoader.getResource(name).getFile());
-        return file;
     }
 }
