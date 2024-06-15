@@ -1,7 +1,10 @@
 package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
-import info.thelaboflieven.gitlabci.model.*;
+import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
+import info.thelaboflieven.gitlabci.model.GitlabJob;
+import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.model.Rule;
 import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;
@@ -10,25 +13,7 @@ import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
-class GitlabCiTest {
-
-    @Test
-    void checkStageAssertions() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExample.yml");
-        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
-    }
-
-    @Test
-    void checkUnknownStageAssertions() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleUnknownStage.yml");
-        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isFalse();
-    }
-
-    @Test
-    void checkStageDefinedAssertions() throws IOException {
-        GitlabPipeline pipeline = getGitlabPipelineForFixture("simpleExampleOwnStageDefined.yml");
-        assertThat(GitlabCiAssertions.allStagesKnown(pipeline)).isTrue();
-    }
+public class JobRunForVariablesTest {
 
     @Test
     void singleConditionAssertion() throws ScriptException {
@@ -52,7 +37,6 @@ class GitlabCiTest {
         assertThat(pipeline.gitlabJobList.get(0).rules).isNotEmpty();
         assertThat(GitlabCiAssertions.jobsRunForVariables(pipeline)).hasSize(3);
     }
-
     private GitlabPipeline getGitlabPipelineForFixture(String name) throws IOException {
         File file = getFixture(name);
         var reader = new GitlabPipelineFileReader();
