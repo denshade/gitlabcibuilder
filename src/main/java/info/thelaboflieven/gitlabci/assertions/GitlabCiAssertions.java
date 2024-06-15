@@ -33,8 +33,14 @@ public class GitlabCiAssertions {
     }
 
     public static boolean allNeedsAreCorrect(GitlabPipeline pipeline, Variable... variables) {
-        var jobNames = pipeline.gitlabJobList.stream().map(j -> j.name).collect(Collectors.toSet());
-        var neededJobNames = pipeline.gitlabJobList.stream().flatMap(j -> j.neededJobs.stream()).collect(Collectors.toSet());
-        return jobNames.containsAll(neededJobNames);
+        var knownJobs = new ArrayList<>();
+        for (String stage : pipeline.stages) {
+            knownJobs.addAll(pipeline.gitlabJobList.stream().filter(j -> j.stage.equals(stage)).map(j -> j.name).collect(Collectors.toSet()));
+            var neededJobNames = pipeline.gitlabJobList.stream().filter(j -> j.stage.equals(stage)).flatMap(j -> j.neededJobs.stream()).collect(Collectors.toSet());
+            if (!knownJobs.containsAll(neededJobNames)) {
+                return false;
+            }
+        }
+        return true;
     }
 }

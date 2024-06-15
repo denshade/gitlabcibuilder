@@ -23,6 +23,12 @@ public class AllNeedsAreMetTest {
     }
 
     @Test
+    void needsIncorrectUnknownForVariable() throws IOException {
+        GitlabPipeline pipeline = getGitlabPipelineForFixture("needsIncorrectUnknownForVariable.yml");
+        assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isFalse();
+    }
+
+    @Test
     void needsIncorrectUnknown() throws IOException {
         GitlabPipeline pipeline = getGitlabPipelineForFixture("needsIncorrectUnknown.yml");
         assertThat(GitlabCiAssertions.allNeedsAreCorrect(pipeline)).isFalse();

@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
+import java.util.Set;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
 
@@ -34,7 +35,17 @@ class GitlabPipelineReaderTest {
         var reader = new GitlabPipelineFileReader();
         GitlabPipeline pipeline = reader.read(file);
         assertThat(pipeline).isNotNull();
-        assertThat(pipeline.stages).isEqualTo(List.of("stage1", "stage2", "stage3"));
+        assertThat(pipeline.stages).isEqualTo(List.of("build", "test", "deploy", "stage1", "stage2", "stage3"));
+    }
+
+    @Test
+    void readerDefaultStagesExample() throws IOException {
+        ClassLoader classLoader = getClass().getClassLoader();
+        File file = new File(classLoader.getResource("simpleExample.yml").getFile());
+        var reader = new GitlabPipelineFileReader();
+        GitlabPipeline pipeline = reader.read(file);
+        assertThat(pipeline).isNotNull();
+        assertThat(pipeline.stages).isEqualTo(List.of("build", "test", "deploy"));
     }
 
 

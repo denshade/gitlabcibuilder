@@ -16,6 +16,9 @@ public class GitlabJobReader {
             if (jobDetails.containsKey("stage")) {
                 gitlabJob.stage = jobDetails.get("stage").toString();
             }
+            if (jobDetails.containsKey("needs")) {
+                gitlabJob.neededJobs = (List)jobDetails.get("needs");
+            }
             gitlabJob.environment = jobDetails.get("environment") == null?null:jobDetails.get("environment").toString();
             if (jobDetails.containsKey("rules")) {
                 var rulesList = (List<Map<String, Object>>) jobDetails.get("rules");

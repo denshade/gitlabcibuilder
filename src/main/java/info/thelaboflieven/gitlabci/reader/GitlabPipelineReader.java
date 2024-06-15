@@ -16,7 +16,7 @@ public class GitlabPipelineReader {
             } else {
                 String jobName = b.getKey().toString();
                 if (jobName.equals("stages")) {
-                    gitlabPipeline.stages = (List)b.getValue();
+                    gitlabPipeline.stages.addAll((List)b.getValue());
                 }
             }
         }
