@@ -32,11 +32,9 @@ public class GitlabCiAssertions {
         return jobs;
     }
 
-    public static boolean allNeedsAreMet(GitlabPipeline pipeline, Variable... variables) {
-        return true;
-    }
-
-    public static boolean noNeedsInWrongStage(GitlabPipeline pipeline, Variable... variables) {
-        return true;
+    public static boolean allNeedsAreCorrect(GitlabPipeline pipeline, Variable... variables) {
+        var jobNames = pipeline.gitlabJobList.stream().map(j -> j.name).collect(Collectors.toSet());
+        var neededJobNames = pipeline.gitlabJobList.stream().flatMap(j -> j.neededJobs.stream()).collect(Collectors.toSet());
+        return jobNames.containsAll(neededJobNames);
     }
 }

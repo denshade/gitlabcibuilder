@@ -9,6 +9,7 @@ public class GitlabJob {
     public Script script;
     public String stage = "test";
     public String environment;
+    public List<String> neededJobs = new ArrayList<>();
     public List<Rule> rules = new ArrayList<>();
 
     public boolean conditionsMet(Variable[] variables) throws ScriptException {
