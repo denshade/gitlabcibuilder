@@ -8,6 +8,7 @@ import javax.script.ScriptException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 public class GitlabCiAssertions {
@@ -16,6 +17,13 @@ public class GitlabCiAssertions {
         var declaredStages = new HashSet<>(gitlabPipeline.stages);
         var mentionedStages = gitlabPipeline.gitlabJobList.stream().map(j -> j.stage).collect(Collectors.toSet());
         return declaredStages.containsAll(mentionedStages);
+    }
+
+    public static Set<String> findUnknownStages(GitlabPipeline gitlabPipeline) {
+        var declaredStages = new HashSet<>(gitlabPipeline.stages);
+        var mentionedStages = new HashSet<String>(gitlabPipeline.gitlabJobList.stream().map(j -> j.stage).collect(Collectors.toSet()));
+        mentionedStages.removeAll(declaredStages);
+        return mentionedStages;
     }
 
     public static List<GitlabJob> jobsRunForVariables(GitlabPipeline pipeline, Variable... variables) throws ScriptException {
