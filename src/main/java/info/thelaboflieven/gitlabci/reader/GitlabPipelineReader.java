@@ -1,6 +1,7 @@
 package info.thelaboflieven.gitlabci.reader;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
+import info.thelaboflieven.gitlabci.model.GitlabJob;
 import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 
 import java.io.File;
@@ -33,7 +34,14 @@ public class GitlabPipelineReader {
                 var reader = new GitlabPipelineFileReader();
                 try {
                     var localGitlabCi = reader.read(new File(file));
-                    gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
+                    List<GitlabJob> gitlabJobList = localGitlabCi.gitlabJobList;
+                    if (jobDetailMap.containsKey("rules")) {
+                        var rules = GitlabRulesReader.getRules(jobDetailMap);
+                        for (var gitlabJob : gitlabJobList){
+                            gitlabJob.rules.addAll(rules);
+                        }
+                    }
+                    gitlabPipeline.gitlabJobList.addAll(gitlabJobList);
                     addStagesIfNotExists(gitlabPipeline, localGitlabCi);
                 } catch (IOException e) {
                     throw new RuntimeException(e);

@@ -15,7 +15,12 @@ public class GitlabRulesReader
         var list = new ArrayList<Rule>();
         var rulesList = (List<Map<String, Object>>) jobDetails.get("rules");
         for (Map<String, Object> rule: rulesList) {
-            list.add(new Rule(new GitlabIfJobCondition(rule.get("if").toString()), GitlabWhenJobCondition.valueOf(rule.get("when").toString().toUpperCase(Locale.ROOT))));
+            String ifStatement = rule.get("if") == null? null: rule.get("if").toString();
+            String whenStatement = rule.get("when") == null? null: rule.get("when").toString().toUpperCase(Locale.ROOT);
+            if (whenStatement == null) {
+                whenStatement = "ALWAYS";
+            }
+            list.add(new Rule(new GitlabIfJobCondition(ifStatement), GitlabWhenJobCondition.valueOf(whenStatement)));
         }
         return list;
     }
