@@ -1,9 +1,12 @@
 package info.thelaboflieven.gitlabci;
 
+import info.thelaboflieven.gitlabci.assertions.GitlabCiAssertions;
 import info.thelaboflieven.gitlabci.model.GitlabJob;
 import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.model.PredefinedVariables;
 import org.junit.jupiter.api.Test;
 
+import javax.script.ScriptException;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
@@ -41,6 +44,13 @@ class GitlabPipelineReaderTest {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleExampleMerge.yml");
         assertEquals(List.of("build-job-ext", "test-job1-ext", "test-job2-ext", "deploy-prod-ext"), pipeline.gitlabJobList.stream().map(e -> e.name).toList());
         assertEquals(List.of("build", "test", "deploy"), pipeline.stages);
+    }
+
+
+    @Test
+    public void loadConditionallyFromLocalFile() throws ScriptException {
+        GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleConditionalLoad.yml");
+        GitlabCiAssertions.jobsRunForVariables(pipeline, PredefinedVariables.CI_PIPELINE_SOURCE(""));
     }
 
 

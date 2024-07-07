@@ -1,0 +1,4 @@
+include:
+  - local: 'src/test/resources/external.yml'
+    rules:
+      - if: $CI_PIPELINE_SOURCE != "schedule"

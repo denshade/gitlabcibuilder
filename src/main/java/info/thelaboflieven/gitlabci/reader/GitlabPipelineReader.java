@@ -16,7 +16,7 @@ public class GitlabPipelineReader {
             var b = (Map.Entry)data;
             String keyName = b.getKey().toString();
             switch (keyName) {
-                case "include" -> loadGitlabPipelineDetails(gitlabPipeline, (Map.Entry<String, Map<String, ?>>) data);
+                case "include" -> loadGitlabPipelineDetails(gitlabPipeline, (Map.Entry<String, Object>) data);
                 case "stages" -> gitlabPipeline.stages.addAll((List) b.getValue());
                 default -> gitlabPipeline.gitlabJobList.add(GitlabJobReader.from(b, gitlabPipeline));
             }
@@ -24,17 +24,20 @@ public class GitlabPipelineReader {
         return gitlabPipeline;
     }
 
-    private static void loadGitlabPipelineDetails(GitlabPipeline gitlabPipeline, Map.Entry<String, Map<String, ?>> data) {
-        var jobDetails = data.getValue();
-        if (jobDetails.containsKey("local")) {
-            String file = jobDetails.get("local").toString();
-            var reader = new GitlabPipelineFileReader();
-            try {
-                var localGitlabCi = reader.read(new File(file));
-                gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
-                addStagesIfNotExists(gitlabPipeline, localGitlabCi);
-            } catch (IOException e) {
-                throw new RuntimeException(e);
+    private static void loadGitlabPipelineDetails(GitlabPipeline gitlabPipeline, Map.Entry<String, Object> data) {
+        var jobDetails = (List)data.getValue();
+        for (var jobDetail : jobDetails) {
+            var jobDetailMap = (Map<String, Object>)jobDetail;
+            if (jobDetailMap.containsKey("local")) {
+                String file = jobDetailMap.get("local").toString();
+                var reader = new GitlabPipelineFileReader();
+                try {
+                    var localGitlabCi = reader.read(new File(file));
+                    gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
+                    addStagesIfNotExists(gitlabPipeline, localGitlabCi);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
             }
         }
     }
