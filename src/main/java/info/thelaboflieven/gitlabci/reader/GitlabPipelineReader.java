@@ -13,29 +13,28 @@ public class GitlabPipelineReader {
         var gitlabPipeline = new GitlabPipeline();
         for (var data : contentMap.entrySet()) {
             var b = (Map.Entry)data;
-            if (b.getKey().equals("include")) {
-                var jobDetails = ((Map.Entry<String, Map<String, ?>>) data).getValue();
-                if (jobDetails.containsKey("local")) {
-                    String file = jobDetails.get("local").toString();
-                    var reader = new GitlabPipelineFileReader();
-                    try {
-                        var localGitlabCi = reader.read(new File(file));
-                        gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
-                        gitlabPipeline.stages.addAll(localGitlabCi.stages);
-                    } catch (IOException e) {
-                        throw new RuntimeException(e);
-                    }
-                }
-            }
-            else if (b.getValue() instanceof Map) {
-                gitlabPipeline.gitlabJobList.add(GitlabJobReader.from(b, gitlabPipeline));
-            } else {
-                String jobName = b.getKey().toString();
-                if (jobName.equals("stages")) {
-                    gitlabPipeline.stages.addAll((List)b.getValue());
-                }
+            String keyName = b.getKey().toString();
+            switch (keyName) {
+                case "include" -> loadGitlabPipelineDetails(gitlabPipeline, (Map.Entry<String, Map<String, ?>>) data);
+                case "stages" -> gitlabPipeline.stages.addAll((List) b.getValue());
+                default -> gitlabPipeline.gitlabJobList.add(GitlabJobReader.from(b, gitlabPipeline));
             }
         }
         return gitlabPipeline;
+    }
+
+    private static void loadGitlabPipelineDetails(GitlabPipeline gitlabPipeline, Map.Entry<String, Map<String, ?>> data) {
+        var jobDetails = data.getValue();
+        if (jobDetails.containsKey("local")) {
+            String file = jobDetails.get("local").toString();
+            var reader = new GitlabPipelineFileReader();
+            try {
+                var localGitlabCi = reader.read(new File(file));
+                gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
+                gitlabPipeline.stages.addAll(localGitlabCi.stages);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 }
