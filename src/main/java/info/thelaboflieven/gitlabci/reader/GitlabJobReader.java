@@ -21,10 +21,7 @@ public class GitlabJobReader {
             }
             gitlabJob.environment = jobDetails.get("environment") == null?null:jobDetails.get("environment").toString();
             if (jobDetails.containsKey("rules")) {
-                var rulesList = (List<Map<String, Object>>) jobDetails.get("rules");
-                for (Map<String, Object> rule: rulesList) {
-                    gitlabJob.rules.add(new Rule(new GitlabIfJobCondition(rule.get("if").toString()), GitlabWhenJobCondition.valueOf(rule.get("when").toString().toUpperCase(Locale.ROOT))));
-                }
+                gitlabJob.rules.addAll(GitlabRulesReader.getRules(jobDetails));
             }
             if (jobDetails.containsKey("script")) {
                 gitlabJob.script = Script.from(jobDetails);
