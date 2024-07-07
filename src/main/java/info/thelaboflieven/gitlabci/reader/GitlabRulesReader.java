@@ -18,7 +18,7 @@ public class GitlabRulesReader
             String ifStatement = rule.get("if") == null? null: rule.get("if").toString();
             String whenStatement = rule.get("when") == null? null: rule.get("when").toString().toUpperCase(Locale.ROOT);
             if (whenStatement == null) {
-                whenStatement = "ALWAYS";
+                whenStatement = GitlabWhenJobCondition.DEFAULT.name();
             }
             list.add(new Rule(new GitlabIfJobCondition(ifStatement), GitlabWhenJobCondition.valueOf(whenStatement)));
         }
