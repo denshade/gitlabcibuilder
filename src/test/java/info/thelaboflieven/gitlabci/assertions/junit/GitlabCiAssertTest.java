@@ -23,7 +23,7 @@ class GitlabCiAssertTest {
     }
 
     @Test
-    void checkJunitAssertJobsRunVariables() throws IOException {
+    void checkJunitAssertJobsRunVariables() {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleRulesWhenNever.yml");
         GitlabCiAssert.assertJobsRun(pipeline, Set.of("test-job2", "deploy-prod", "test-job1"), PredefinedVariables.CI_PIPELINE_SOURCE("MY_PIPELINE"));
     }

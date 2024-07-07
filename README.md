@@ -46,3 +46,12 @@ If, for whatever reason, your GitLab pipeline is defined in a different location
 ````
 new GitlabPipelineFileReader().read(File file)
 ````
+
+## Limitations
+The gitlab ci specification is huge.
+This tool loads only a small set of the gitlab ci specification.
+
+The following are supported:
+- Loading job, rules, if conditions, when clauses.
+- Loading the job script, no support to run them.
+- Loading other local .yml files. 
