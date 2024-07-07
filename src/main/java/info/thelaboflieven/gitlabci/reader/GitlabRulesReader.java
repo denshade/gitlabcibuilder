@@ -4,10 +4,7 @@ import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
 import info.thelaboflieven.gitlabci.model.GitlabWhenJobCondition;
 import info.thelaboflieven.gitlabci.model.Rule;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
+import java.util.*;
 
 public class GitlabRulesReader
 {
@@ -15,12 +12,12 @@ public class GitlabRulesReader
         var list = new ArrayList<Rule>();
         var rulesList = (List<Map<String, Object>>) jobDetails.get("rules");
         for (Map<String, Object> rule: rulesList) {
-            String ifStatement = rule.get("if") == null? null: rule.get("if").toString();
-            String whenStatement = rule.get("when") == null? null: rule.get("when").toString().toUpperCase(Locale.ROOT);
+            String ifStatement = Objects.toString(rule.get("if"));
+            String whenStatement = Objects.toString(rule.get("when"));
             if (whenStatement == null) {
                 whenStatement = GitlabWhenJobCondition.DEFAULT.name();
             }
-            list.add(new Rule(new GitlabIfJobCondition(ifStatement), GitlabWhenJobCondition.valueOf(whenStatement)));
+            list.add(new Rule(new GitlabIfJobCondition(ifStatement), GitlabWhenJobCondition.valueOf(whenStatement.toUpperCase(Locale.ROOT))));
         }
         return list;
     }
