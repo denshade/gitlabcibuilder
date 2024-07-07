@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.Map;
 
 public class GitlabPipelineReader {
+
     public static GitlabPipeline from(Map contentMap) {
         var gitlabPipeline = new GitlabPipeline();
         for (var data : contentMap.entrySet()) {
@@ -31,9 +32,17 @@ public class GitlabPipelineReader {
             try {
                 var localGitlabCi = reader.read(new File(file));
                 gitlabPipeline.gitlabJobList.addAll(localGitlabCi.gitlabJobList);
-                gitlabPipeline.stages.addAll(localGitlabCi.stages);
+                addStagesIfNotExists(gitlabPipeline, localGitlabCi);
             } catch (IOException e) {
                 throw new RuntimeException(e);
+            }
+        }
+    }
+
+    private static void addStagesIfNotExists(GitlabPipeline gitlabPipeline, GitlabPipeline localGitlabCi) {
+        for (String localStage: localGitlabCi.stages) {
+            if (!gitlabPipeline.stages.contains(localStage)) {
+                gitlabPipeline.stages.add(localStage);
             }
         }
     }

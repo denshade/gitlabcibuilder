@@ -7,6 +7,7 @@ import org.junit.jupiter.api.Test;
 import java.util.List;
 
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class GitlabPipelineReaderTest {
 
@@ -33,6 +34,13 @@ class GitlabPipelineReaderTest {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleExample.yml");
         assertThat(pipeline).isNotNull();
         assertThat(pipeline.stages).isEqualTo(List.of("build", "test", "deploy"));
+    }
+
+    @Test
+    public void loadAdditionalFromLocalFile(){
+        GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleExampleMerge.yml");
+        assertEquals(List.of("build-job-ext", "test-job1-ext", "test-job2-ext", "deploy-prod-ext"), pipeline.gitlabJobList.stream().map(e -> e.name).toList());
+        assertEquals(List.of("build", "test", "deploy"), pipeline.stages);
     }
 
 
