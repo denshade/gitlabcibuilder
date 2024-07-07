@@ -50,8 +50,15 @@ class GitlabPipelineReaderTest {
     @Test
     public void loadConditionallyFromLocalFile() throws ScriptException {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleConditionalLoad.yml");
-        GitlabCiAssertions.jobsRunForVariables(pipeline, PredefinedVariables.CI_PIPELINE_SOURCE(""));
+        var jobs = GitlabCiAssertions.jobsRunForVariables(pipeline, PredefinedVariables.CI_PIPELINE_SOURCE("schedule"));
+        assertThat(jobs).hasSize(4);
     }
 
+    @Test
+    public void loadConditionallyFromLocalFileSkipped() throws ScriptException {
+        GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleConditionalLoad.yml");
+        var jobs = GitlabCiAssertions.jobsRunForVariables(pipeline, PredefinedVariables.CI_PIPELINE_SOURCE("push"));
+        assertThat(jobs).hasSize(0);
+    }
 
 }
