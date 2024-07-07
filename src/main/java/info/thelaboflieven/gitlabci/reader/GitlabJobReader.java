@@ -1,16 +1,13 @@
 package info.thelaboflieven.gitlabci.reader;
 
-import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
 import info.thelaboflieven.gitlabci.model.*;
 
-import java.io.File;
-import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 public class GitlabJobReader {
-    public static GitlabJob from(Map.Entry mapEntry, GitlabPipeline pipeline) {
+    public static GitlabJob from(Map.Entry mapEntry) {
         var gitlabJob = new GitlabJob();
         var b = (Map.Entry)mapEntry;
         if (b.getValue() instanceof Map) {
