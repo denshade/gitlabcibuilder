@@ -10,20 +10,11 @@ import java.util.Locale;
 import java.util.Map;
 
 public class GitlabJobReader {
-    public static GitlabJob from(Map.Entry mapEntry) {
+    public static GitlabJob from(Map.Entry mapEntry, GitlabPipeline pipeline) {
         var gitlabJob = new GitlabJob();
         var b = (Map.Entry)mapEntry;
         if (b.getValue() instanceof Map) {
             var jobDetails = (Map)b.getValue();
-            if (jobDetails.containsKey("local")) {
-                String file = jobDetails.get("local").toString();
-                var reader = new  GitlabPipelineFileReader();
-                try {
-                    var gitlabCi = reader.read(new File(file));
-                } catch (IOException e) {
-                    throw new RuntimeException(e);
-                }
-            }
             gitlabJob.name = b.getKey().toString();
             if (jobDetails.containsKey("stage")) {
                 gitlabJob.stage = jobDetails.get("stage").toString();
