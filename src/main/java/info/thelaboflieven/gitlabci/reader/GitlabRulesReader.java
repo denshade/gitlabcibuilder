@@ -12,8 +12,8 @@ public class GitlabRulesReader
         var list = new ArrayList<Rule>();
         var rulesList = (List<Map<String, Object>>) jobDetails.get("rules");
         for (Map<String, Object> rule: rulesList) {
-            String ifStatement = Objects.toString(rule.get("if"));
-            String whenStatement = Objects.toString(rule.get("when"));
+            String ifStatement = Objects.toString(rule.get("if"), null);
+            String whenStatement = Objects.toString(rule.get("when"), null);
             if (whenStatement == null) {
                 whenStatement = GitlabWhenJobCondition.DEFAULT.name();
             }
