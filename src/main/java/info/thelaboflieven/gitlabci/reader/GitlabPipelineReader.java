@@ -13,6 +13,7 @@ public class GitlabPipelineReader {
 
     public static GitlabPipeline from(Map contentMap) {
         var gitlabPipeline = new GitlabPipeline();
+        if (contentMap == null) return gitlabPipeline;
         for (var data : contentMap.entrySet()) {
             var b = (Map.Entry)data;
             String keyName = b.getKey().toString();

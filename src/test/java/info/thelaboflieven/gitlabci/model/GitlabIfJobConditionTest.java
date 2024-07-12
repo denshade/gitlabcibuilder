@@ -24,6 +24,13 @@ class GitlabIfJobConditionTest {
     }
 
     @Test
+    void checkConditionsEmptyMet() throws ScriptException {
+        var gitlabCondition = new GitlabIfJobCondition(null);
+        assertThat(gitlabCondition.isMet(Variable.of("CI_PIPELINE_SOURCE", "merge_request_event"))).isTrue();
+    }
+
+
+    @Test
     void checkConditionsNotMet() throws ScriptException {
         var gitlabCondition = new GitlabIfJobCondition("$CI_PIPELINE_SOURCE == \"merge_request_event\"");
         assertThat(gitlabCondition.isMet(Variable.of("CI_PIPELINE_SOURCE", "potato"))).isFalse();
