@@ -488,4 +488,8 @@ public class PredefinedVariables {
     public static Variable TRIGGER_PAYLOAD(String value) {
         return new Variable("TRIGGER_PAYLOAD", value);
     }
+
+    public static Variable CI_MERGE_REQUEST_ID(String value) {
+        return new Variable("CI_MERGE_REQUEST_ID", value);
+    }
 }

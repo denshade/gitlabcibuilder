@@ -6,6 +6,7 @@ import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import info.thelaboflieven.gitlabci.model.PredefinedVariables;
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
@@ -33,4 +34,6 @@ class GitlabCiAssertTest {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("needsCorrect.yml");
         GitlabCiAssert.assertNeeds(pipeline);
     }
+
+
 }

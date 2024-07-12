@@ -20,6 +20,7 @@ public class GitlabPipelineReader {
             switch (keyName) {
                 case "include" -> loadGitlabPipelineDetails(gitlabPipeline, (Map.Entry<String, Object>) data);
                 case "stages" -> gitlabPipeline.stages.addAll((List) b.getValue());
+                case "variables", "workflow", "default" -> {} //todo variables, workflows and default.
                 default -> gitlabPipeline.gitlabJobList.add(GitlabJobReader.from(b));
             }
         }

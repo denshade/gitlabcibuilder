@@ -3,7 +3,6 @@ package info.thelaboflieven.gitlabci.reader;
 import info.thelaboflieven.gitlabci.model.*;
 
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 public class GitlabJobReader {
