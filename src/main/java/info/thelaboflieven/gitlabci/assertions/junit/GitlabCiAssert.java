@@ -19,11 +19,23 @@ public class GitlabCiAssert {
         }
     }
 
-    public static void assertJobsRun(GitlabPipeline gitlabPipeline, Set<String> expectedJobs, Variable... variables) {
+    public static void assertJobsRunsExactly(GitlabPipeline gitlabPipeline, Set<String> expectedJobs, Variable... variables) {
         try {
             var jobs = GitlabCiAssertions.jobsRunForVariables(gitlabPipeline, variables).stream().filter(Objects::nonNull).collect(Collectors.toSet());
             var actualJobs = jobs.stream().map(j -> j.name).filter(Objects::nonNull).collect(Collectors.toSet());
             if (!actualJobs.equals(expectedJobs)) {
+                throw new AssertionError("The gitlab pipeline doesn't match the expected jobs. Expected " + expectedJobs + " vs. " + actualJobs);
+            }
+        } catch (ScriptException scriptException) {
+            throw new AssertionError("A problem has occurred parsing conditions", scriptException);
+        }
+    }
+
+    public static void assertContainsJobs(GitlabPipeline gitlabPipeline, Set<String> expectedJobs, Variable... variables) {
+        try {
+            var jobs = GitlabCiAssertions.jobsRunForVariables(gitlabPipeline, variables).stream().filter(Objects::nonNull).collect(Collectors.toSet());
+            var actualJobs = jobs.stream().map(j -> j.name).filter(Objects::nonNull).collect(Collectors.toSet());
+            if (!actualJobs.containsAll(expectedJobs)) {
                 throw new AssertionError("The gitlab pipeline doesn't match the expected jobs. Expected " + expectedJobs + " vs. " + actualJobs);
             }
         } catch (ScriptException scriptException) {

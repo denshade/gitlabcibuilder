@@ -6,7 +6,6 @@ import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import info.thelaboflieven.gitlabci.model.PredefinedVariables;
 import org.junit.jupiter.api.Test;
 
-import java.io.File;
 import java.io.IOException;
 import java.util.Set;
 
@@ -19,14 +18,20 @@ class GitlabCiAssertTest {
 
     @Test
     void checkJunitAssertJobsRun() throws IOException {
-        GitlabCiAssert.assertJobsRun(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
+        GitlabCiAssert.assertJobsRunsExactly(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
                 "test-job1"));
     }
 
     @Test
     void checkJunitAssertJobsRunVariables() {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleRulesWhenNever.yml");
-        GitlabCiAssert.assertJobsRun(pipeline, Set.of("test-job2", "deploy-prod", "test-job1"), PredefinedVariables.CI_PIPELINE_SOURCE("MY_PIPELINE"));
+        GitlabCiAssert.assertJobsRunsExactly(pipeline, Set.of("test-job2", "deploy-prod", "test-job1"), PredefinedVariables.CI_PIPELINE_SOURCE("MY_PIPELINE"));
+    }
+
+    @Test
+    void checkJunitAssertJobsRunContainsVariables() {
+        GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleRulesWhenNever.yml");
+        GitlabCiAssert.assertContainsJobs(pipeline, Set.of("deploy-prod", "test-job1"), PredefinedVariables.CI_PIPELINE_SOURCE("MY_PIPELINE"));
     }
 
     @Test
