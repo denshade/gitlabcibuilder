@@ -1,5 +1,7 @@
 plugins {
     id 'java'
+    id 'maven-publish'
+    id 'signing'
 }
 
 group 'info.thelaboflieven'
@@ -28,3 +30,40 @@ allprojects {
         targetCompatibility =  JavaVersion.VERSION_17
     }
 }
+task javadocJar(type: Jar) {
+    archiveClassifier.set('javadoc')
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    archiveClassifier.set('sources')
+    from sourceSets.main.allSource
+}
+
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+        }
+    }
+    repositories {
+        maven {
+            name = 'myRepo'
+            url = uri('https://my.repo.com/repository/maven-releases/')
+            credentials {
+                username = project.findProperty("repo.user") ?: "defaultUser"
+                password = project.findProperty("repo.password") ?: "defaultPassword"
+            }
+        }
+    }
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
