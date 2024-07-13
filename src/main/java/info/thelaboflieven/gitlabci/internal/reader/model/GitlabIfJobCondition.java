@@ -1,5 +1,7 @@
 package info.thelaboflieven.gitlabci.internal.reader.model;
 
+import info.thelaboflieven.gitlabci.internal.reader.ScriptEngineManagerRegistry;
+
 import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
@@ -14,8 +16,7 @@ public record GitlabIfJobCondition(String conditions) {
         for (var variable : variables) {
             filledConditions = filledConditions.replaceAll("\\$" + variable.name(), '"' + variable.value() + '"');
         }
-        var manager = new ScriptEngineManager();
-        ScriptEngine engine = manager.getEngineByName("JavaScript");
+        ScriptEngine engine = ScriptEngineManagerRegistry.getInstance();
         var outcome = engine.eval(filledConditions);
         if (outcome instanceof Boolean) {
             return (Boolean) outcome;
