@@ -5,7 +5,7 @@ This Java library offers assertions to unit test your GitLab CI configuration. U
 - Quick feedback loop without breaking the rest of the pipeline
 - Run tests as part of the merge request
 
-This allows you to write tests so you don't have to merge changes only to find that you've broken the build.
+This allows you to write tests, so you don't have to merge changes only to find that you've broken the build.
 # API
 ## GitlabCiAssert.assertAllStagesKnown
 This assertion checks that all stages used by the jobs are known:
