@@ -43,6 +43,20 @@ public class GitlabCiAssert {
         }
     }
 
+    public static void assertJobsNotRun(GitlabPipeline gitlabPipeline, Set<String> expectedJobs, Variable... variables) {
+        try {
+            var jobs = GitlabCiAssertions.jobsRunForVariables(gitlabPipeline, variables).stream().filter(Objects::nonNull).collect(Collectors.toSet());
+            var actualJobs = jobs.stream().map(j -> j.name).filter(Objects::nonNull).collect(Collectors.toSet());
+            for (var job: expectedJobs) {
+                if (actualJobs.contains(job)) {
+                    throw new AssertionError("The gitlab pipeline would run an unexpected job: " + job);
+                }
+            }
+        } catch (ScriptException scriptException) {
+            throw new AssertionError("A problem has occurred parsing conditions", scriptException);
+        }
+    }
+
     public static void assertNeeds(GitlabPipeline pipeline) {
         var knownJobs = new ArrayList<>();
         for (String stage : pipeline.stages) {

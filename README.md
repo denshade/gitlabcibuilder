@@ -14,18 +14,18 @@ This assertion checks that all stages used by the jobs are known:
 GitlabCiAssert.assertAllStagesKnown(GitlabPipelineFileReader.pipelineInProject());
 ```
 
-## GitlabCiAssert.assertJobsRun 
+## GitlabCiAssert.assertJobsRunsExactly 
 This assertion checks that a set of jobs will run, given a set of variables. The variables are optional.
 
 ``` 
-GitlabCiAssert.assertJobsRun(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
+GitlabCiAssert.assertJobsRunsExactly(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
                 "test-job1"));
 ```
 
 To check if specific jobs run when a specific variable is set, you can use:
 
 ``` 
-GitlabCiAssert.assertJobsRun(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
+GitlabCiAssert.assertJobsRunsExactly(GitlabPipelineFileReader.pipelineInProject(), Set.of("build-job", "test-job2", "deploy-prod",
                 "test-job1"));
 ```
 
@@ -35,6 +35,20 @@ resolved in a previous or the current stage (or it's in a default state).
 
 ``` 
 GitlabCiAssert.assertNeeds(GitlabPipelineFileReader.pipelineInProject());
+```
+
+## GitlabCiAssert.assertContainsJobs
+This assertion checks that a set of jobs will run, given a set of variables. The variables are optional.
+
+``` 
+GitlabCiAssert.assertContainsJobs(GitlabPipelineFileReader.pipelineInProject(), Set<String> expectedJobs, Variable... variables);
+```
+
+## GitlabCiAssert.assertJobsNotRun
+This assertion checks that a set of jobs will NOT run, given a set of variables. The variables are optional.
+
+``` 
+GitlabCiAssert.assertJobsNotRun(GitlabPipelineFileReader.pipelineInProject(), Set<String> expectedJobs, Variable... variables);
 ```
 
 

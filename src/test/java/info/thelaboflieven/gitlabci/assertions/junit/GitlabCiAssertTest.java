@@ -35,6 +35,13 @@ class GitlabCiAssertTest {
     }
 
     @Test
+    void checkJunitAssertJobsRunDoesNotContainVariables() {
+        GitlabPipeline pipeline = GitlabPipelineTestLoader.load("simpleConditionalLoad.yml");
+        GitlabCiAssert.assertJobsNotRun(pipeline, Set.of("build-job-ext"), PredefinedVariables.CI_PIPELINE_SOURCE("schedule"));
+    }
+
+
+    @Test
     void checkJunitAssertNeedsVariables() {
         GitlabPipeline pipeline = GitlabPipelineTestLoader.load("needsCorrect.yml");
         GitlabCiAssert.assertNeeds(pipeline);
