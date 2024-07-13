@@ -2,7 +2,6 @@ package info.thelaboflieven.gitlabci.model;
 
 import info.thelaboflieven.gitlabci.reader.ReaderCommon;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 

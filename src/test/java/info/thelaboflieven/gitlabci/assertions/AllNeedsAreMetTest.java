@@ -1,12 +1,7 @@
 package info.thelaboflieven.gitlabci.assertions;
 
-import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
 import info.thelaboflieven.gitlabci.GitlabPipelineTestLoader;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
 import org.junit.jupiter.api.Test;
-
-import java.io.File;
-import java.io.IOException;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 

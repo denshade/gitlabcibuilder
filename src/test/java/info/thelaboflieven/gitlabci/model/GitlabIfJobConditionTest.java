@@ -4,9 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;
 
-import static org.assertj.core.api.AssertionsForClassTypes.assertThatCode;
 import static org.assertj.core.api.AssertionsForInterfaceTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 class GitlabIfJobConditionTest {
 
