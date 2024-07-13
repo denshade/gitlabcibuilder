@@ -53,7 +53,7 @@ GitlabCiAssert.assertJobsNotRun(GitlabPipelineFileReader.pipelineInProject(), Se
 
 
 ## Useful functions
-A list of predefined variables is available in ```info.thelaboflieven.gitlabci.model.PredefinedVariables```. 
+A list of predefined variables is available in ```PredefinedVariables```. 
 
 If, for whatever reason, your GitLab pipeline is defined in a different location, you can use:
 

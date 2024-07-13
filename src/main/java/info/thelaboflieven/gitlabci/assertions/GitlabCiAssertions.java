@@ -1,8 +1,8 @@
 package info.thelaboflieven.gitlabci.assertions;
 
-import info.thelaboflieven.gitlabci.model.GitlabJob;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.model.Variable;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabJob;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.Variable;
 
 import javax.script.ScriptException;
 import java.util.ArrayList;

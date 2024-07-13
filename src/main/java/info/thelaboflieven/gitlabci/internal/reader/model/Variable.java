@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci.model;
+package info.thelaboflieven.gitlabci.internal.reader.model;
 
 public record Variable(String name, String value) {
 

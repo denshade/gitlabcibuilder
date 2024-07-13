@@ -1,8 +1,8 @@
-package info.thelaboflieven.gitlabci.reader;
+package info.thelaboflieven.gitlabci.internal.reader;
 
-import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
-import info.thelaboflieven.gitlabci.model.GitlabWhenJobCondition;
-import info.thelaboflieven.gitlabci.model.Rule;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabIfJobCondition;
+import info.thelaboflieven.gitlabci.internal.reader.model.Rule;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabWhenJobCondition;
 
 import java.util.*;
 

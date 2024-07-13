@@ -1,5 +1,6 @@
 package info.thelaboflieven.gitlabci.model;
 
+import info.thelaboflieven.gitlabci.internal.reader.model.Script;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;

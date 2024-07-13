@@ -1,10 +1,10 @@
 package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineTestLoader;
-import info.thelaboflieven.gitlabci.model.GitlabIfJobCondition;
-import info.thelaboflieven.gitlabci.model.GitlabJob;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.model.Rule;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabIfJobCondition;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabJob;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.Rule;
 import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;

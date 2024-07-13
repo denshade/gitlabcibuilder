@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci.model;
+package info.thelaboflieven.gitlabci.internal.reader.model;
 
 public class PredefinedVariables {
     public static Variable CHAT_CHANNEL(String value) {

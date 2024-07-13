@@ -2,7 +2,7 @@ package info.thelaboflieven.gitlabci.assertions;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineTestLoader;
 import info.thelaboflieven.gitlabci.assertions.junit.GitlabCiAssert;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;

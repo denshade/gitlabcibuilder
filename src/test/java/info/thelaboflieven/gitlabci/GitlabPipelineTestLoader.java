@@ -1,6 +1,6 @@
 package info.thelaboflieven.gitlabci;
 
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
 
 import java.io.File;
 import java.io.IOException;

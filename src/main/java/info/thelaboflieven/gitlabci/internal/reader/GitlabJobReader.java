@@ -1,6 +1,7 @@
-package info.thelaboflieven.gitlabci.reader;
+package info.thelaboflieven.gitlabci.internal.reader;
 
-import info.thelaboflieven.gitlabci.model.*;
+import info.thelaboflieven.gitlabci.internal.reader.model.Script;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabJob;
 
 import java.util.List;
 import java.util.Map;

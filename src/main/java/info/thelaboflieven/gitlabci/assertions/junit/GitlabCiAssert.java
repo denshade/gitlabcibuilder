@@ -1,9 +1,9 @@
 package info.thelaboflieven.gitlabci.assertions.junit;
 
 import info.thelaboflieven.gitlabci.assertions.GitlabCiAssertions;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.model.Variable;
-import info.thelaboflieven.gitlabci.reader.ReaderCommon;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.Variable;
+import info.thelaboflieven.gitlabci.internal.reader.ReaderCommon;
 
 import javax.script.ScriptException;
 import java.util.ArrayList;

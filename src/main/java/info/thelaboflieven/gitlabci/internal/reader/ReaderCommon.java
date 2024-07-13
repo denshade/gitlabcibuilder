@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci.reader;
+package info.thelaboflieven.gitlabci.internal.reader;
 
 import java.util.ArrayList;
 import java.util.List;

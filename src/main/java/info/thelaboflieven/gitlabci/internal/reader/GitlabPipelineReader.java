@@ -1,8 +1,9 @@
-package info.thelaboflieven.gitlabci.reader;
+package info.thelaboflieven.gitlabci.internal.reader;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
-import info.thelaboflieven.gitlabci.model.GitlabJob;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabJob;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+
 
 import java.io.File;
 import java.io.IOException;

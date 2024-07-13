@@ -1,9 +1,9 @@
 package info.thelaboflieven.gitlabci;
 
 import info.thelaboflieven.gitlabci.assertions.GitlabCiAssertions;
-import info.thelaboflieven.gitlabci.model.GitlabJob;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.model.PredefinedVariables;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabJob;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.PredefinedVariables;
 import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;

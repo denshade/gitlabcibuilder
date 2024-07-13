@@ -2,8 +2,8 @@ package info.thelaboflieven.gitlabci.assertions.junit;
 
 import info.thelaboflieven.gitlabci.GitlabPipelineFileReader;
 import info.thelaboflieven.gitlabci.GitlabPipelineTestLoader;
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.model.PredefinedVariables;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
+import info.thelaboflieven.gitlabci.internal.reader.model.PredefinedVariables;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;

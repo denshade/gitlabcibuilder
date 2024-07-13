@@ -1,6 +1,6 @@
-package info.thelaboflieven.gitlabci.model;
+package info.thelaboflieven.gitlabci.internal.reader.model;
 
-import info.thelaboflieven.gitlabci.reader.ReaderCommon;
+import info.thelaboflieven.gitlabci.internal.reader.ReaderCommon;
 
 import java.util.List;
 import java.util.Map;

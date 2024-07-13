@@ -1,7 +1,7 @@
 package info.thelaboflieven.gitlabci;
 
-import info.thelaboflieven.gitlabci.model.GitlabPipeline;
-import info.thelaboflieven.gitlabci.reader.GitlabPipelineReader;
+import info.thelaboflieven.gitlabci.internal.reader.GitlabPipelineReader;
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabPipeline;
 import org.yaml.snakeyaml.Yaml;
 
 import java.io.File;

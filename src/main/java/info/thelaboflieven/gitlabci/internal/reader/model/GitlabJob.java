@@ -1,4 +1,4 @@
-package info.thelaboflieven.gitlabci.model;
+package info.thelaboflieven.gitlabci.internal.reader.model;
 
 import javax.script.ScriptException;
 import java.util.ArrayList;

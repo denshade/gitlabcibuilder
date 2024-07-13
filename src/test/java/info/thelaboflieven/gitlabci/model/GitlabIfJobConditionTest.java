@@ -1,5 +1,7 @@
 package info.thelaboflieven.gitlabci.model;
 
+import info.thelaboflieven.gitlabci.internal.reader.model.GitlabIfJobCondition;
+import info.thelaboflieven.gitlabci.internal.reader.model.Variable;
 import org.junit.jupiter.api.Test;
 
 import javax.script.ScriptException;
