@@ -1,5 +1,8 @@
 package info.thelaboflieven.gitlabci.internal.reader.model;
 
+/**
+ * More details here: https://docs.gitlab.com/ee/ci/variables/predefined_variables.html
+ */
 public class PredefinedVariables {
     public static Variable CHAT_CHANNEL(String value) {
         return new Variable("CHAT_CHANNEL", value);
